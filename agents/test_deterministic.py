@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 
 # content of test_sample.py
-from agent.deterministic import _possible_alignments, _neighbours_of
+from agents.deterministic import _possible_alignments, _neighbours_of
 
 
 def test_alignments_single_ship():

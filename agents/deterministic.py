@@ -21,13 +21,13 @@ def _alignments_in(row: int, col: int, board: np.ndarray, ships: List[int]) -> s
             # Vertical alignment attempts
             if row - i >= 0 \
                     and row - i + ship_length <= row_len \
-                    and np.all(board[row - i:row - i + ship_length, col] == 0):
+                    and np.all(board[row - i:row - i + ship_length, col] == 1):
                 # Add a tuple of the ship to identify it.
                 valid_alignments.add((row - i, col, ship_length, 'V', ship_id))
             # Horizontal alignment attempts
             if col - i >= 0 \
                     and col - i + ship_length <= col_len \
-                    and np.all(board[row, col - i:col - i + ship_length] == 0):
+                    and np.all(board[row, col - i:col - i + ship_length] == 1):
                 # Add a tuple of the ship to identify it.
                 valid_alignments.add((row, col - i, ship_length, 'H', ship_id))
 
@@ -51,7 +51,7 @@ def _possible_alignments(board: np.ndarray, ships: List[int]) -> np.ndarray:
     for r in range(0, row_len):
         for c in range(0, col_len):
             # only bother with empty cells (as it is otherwise always 0).
-            if board[r, c] == 0:
+            if board[r, c] == 1:
                 # find alignments per cell
                 ship_alignments = _alignments_in(r, c, board, ships)
                 alignments[r, c] = len(ship_alignments)
@@ -69,21 +69,22 @@ def _neighbours_of(board: np.ndarray, coords: np.ndarray) -> np.ndarray:
     valid_neighbours = []
     for (r, c) in coords:
         # above
-        if r - 1 >= 0 and board[r - 1, c] == 0:
+        if r - 1 >= 0 and board[r - 1, c] == 1:
             valid_neighbours.append((r - 1, c))
         # below
-        if r + 1 < board.shape[0] and board[r + 1, c] == 0:
+        if r + 1 < board.shape[0] and board[r + 1, c] == 1:
             valid_neighbours.append((r + 1, c))
         # left
-        if c - 1 >= 0 and board[r, c - 1] == 0:
+        if c - 1 >= 0 and board[r, c - 1] == 1:
             valid_neighbours.append((r, c - 1))
         # right
-        if c + 1 < board.shape[1] and board[r, c + 1] == 0:
+        if c + 1 < board.shape[1] and board[r, c + 1] == 1:
             valid_neighbours.append((r, c + 1))
 
     return np.array(valid_neighbours)
 
 
+# TODO update to work on tensor-based data
 def deterministic_policy(board: np.ndarray, remaining_ships: List[int]) -> tuple[int, int]:
     """
     Targets the coordinate with the highest number of possible ship alignments.
