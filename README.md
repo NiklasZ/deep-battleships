@@ -1,5 +1,5 @@
-# Note
-This is still work in progress. Visualisations and better agents are on their way.
+# Introduction
+The following is a university project of a DQN agent playing the attacker in the game battleship. It plays on a 10x10 grid using a CNN to approximate the value function.
 
 # Installation
 1. Install Python `3.9`
