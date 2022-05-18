@@ -1,5 +1,5 @@
 # Introduction
-The following is a university project of a DQN agent playing the attacker in the game battleship. It plays on a 10x10 grid using a CNN to approximate the value function.
+The following is a university project of a DQN agent playing the attacker in the game battleship. It plays on a 10x10 grid using a CNN to approximate the value function. A full description and analysis can be seen in the report.
 
 # Installation
 1. Install Python `3.9`
